@@ -1,0 +1,12 @@
+#!/bin/bash
+#mysql serveri paigaldamine skriptiga
+#kontrollitakse, kas mysql on olemas
+mysql=$(dpkg-query -W -f='${Status}' mysql 2>/dev/null | grep -c "ok installed")
+#kui ridade arv on 0 siis pole mysql paigaldatud ja tuleb paigaldada
+if [ $mysql -eq 0 ]; then
+	echo "Pigaldan Mysql!"
+	sudo apt-get install mysql-server
+#kui ridade arv on 0, on mysql juba eelnevalt installitud
+elif [ $mysql -eq 1 ]; then
+	echo "Mysql on olemas!"
+fi
